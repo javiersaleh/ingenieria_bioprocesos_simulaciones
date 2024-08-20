@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de cultivo por lotes</title>
+</head>
+<body>
+    <h1>Simulación de cultivo por lotes</h1>
+    <form action="/simulate" method="post">
+        <label for="initial_substrate">Concentración incial de Sustrato (g/L):</label>
+        <input type="number" id="initial_substrate" name="initial_substrate" step="0.1" required><br><br>
+        
+        <label for="initial_biomass">Concentración incial de Biomasa (g/L):</label>
+        <input type="number" id="initial_biomass" name="initial_biomass" step="0.1" required><br><br>
+        
+        <label for="mu_max">Mu Max (1/h):</label>
+        <input type="number" id="mu_max" name="mu_max" step="0.01" required><br><br>
+        
+        <label for="Ks">Ks (g/L):</label>
+        <input type="number" id="Ks" name="Ks" step="0.01" required><br><br>
+        
+        <label for="Yxs">Yxs (g biomass / g substrate):</label>
+        <input type="number" id="Yxs" name="Yxs" step="0.01" required><br><br>
+        
+        <label for="time">Time (h):</label>
+        <input type="number" id="time" name="time" step="0.1" required><br><br>
+        
+        <input type="submit" value="Simulate">
+    </form>
+    <br>
+    {% if url %}
+    <img src="{{ url }}" alt="Simulation Result">
+    {% endif %}
+</body>
+</html>
