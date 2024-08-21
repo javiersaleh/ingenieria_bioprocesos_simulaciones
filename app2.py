@@ -29,6 +29,7 @@ def simulate():
         reactor = Bioreactor(initial_substrate, initial_biomass, mu_max, Ks, Yxs, qp, Yps, growth_associated)
         times, substrate_concentrations, biomass_concentrations, mus, products = reactor.simulate(time, dt)
         volumes = None
+        biomass = None
     elif cultivation_type == 'cla':
         feed_rate = float(request.form['feed_rate'])
         feed_concentration = float(request.form['feed_concentration'])

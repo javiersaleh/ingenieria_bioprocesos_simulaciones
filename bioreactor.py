@@ -43,4 +43,4 @@ class Bioreactor:
             self.product += product_rate * self.biomass * dt
             products.append(self.product)
 
-        return times, substrate_concentrations, biomass_concentrations, mus, products, None
+        return times, substrate_concentrations, biomass_concentrations, mus, products
