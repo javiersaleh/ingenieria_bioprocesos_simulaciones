@@ -20,6 +20,8 @@ class Bioreactor:
 
         t = 0
         while t < time:
+            if self.substrate <= 0:
+                break
             mu = self.mu_max * (self.substrate / (self.Ks + self.substrate)) #Monod
             mus.append(mu)
             dS = - (mu / self.Yxs + self.qp / self.Yps) * self.biomass * dt #Consumo sustrato

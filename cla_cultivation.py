@@ -24,6 +24,8 @@ class CLACultivation:
 
         t = 0
         while t < time:
+            if self.substrate <= 0:
+                break
             t += dt
             times.append(t)
 
