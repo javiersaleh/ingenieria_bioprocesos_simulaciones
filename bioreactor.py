@@ -22,7 +22,7 @@ class Bioreactor:
         while t < time:
             mu = self.mu_max * (self.substrate / (self.Ks + self.substrate)) #Monod
             mus.append(mu)
-            dS = -mu * self.biomass * dt / self.Yxs #Consumo sustrato
+            dS = - (mu / self.Yxs + self.qp / self.Yps) * self.biomass * dt #Consumo sustrato
             dX = mu * self.biomass * dt #Crecimiento biomasa
 
             self.substrate += dS
@@ -34,13 +34,13 @@ class Bioreactor:
             substrate_concentrations.append(self.substrate)
             biomass_concentrations.append(self.biomass)
 
-            # Cálculo del producto
+            #Balance producto
             if self.growth_associated == 'yes':
-                product_rate = self.Yps / self.Yxs * mu * self.biomass  # Producto asociado al crecimiento
+                product_rate = self.Yps / self.Yxs * mu # Producto asociado al crecimiento
             else:
-                product_rate = self.qp * self.substrate  # Producto no asociado al crecimiento
+                product_rate = self.qp # Producto no asociado al crecimiento
 
-            self.product += product_rate * dt
+            self.product += product_rate * self.biomass * dt
             products.append(self.product)
 
         return times, substrate_concentrations, biomass_concentrations, mus, products
