@@ -1,13 +1,14 @@
 import matplotlib.pyplot as plt
 
 class PlotResults:
-    def __init__(self, times, substrate_concentrations, biomass_concentrations, mus, volumes, products):
+    def __init__(self, times, substrate_concentrations, biomass_concentrations, mus, volumes, products, biomass):
         self.times = times
         self.substrate_concentrations = substrate_concentrations
         self.biomass_concentrations = biomass_concentrations
         self.mus = mus
         self.volumes = volumes
         self.products = products
+        self.biomass = biomass
     
     def plot_concentrations(self, img):
         plt.figure()
@@ -22,8 +23,8 @@ class PlotResults:
     
     def plot_biomass_accumulation(self, img):
         plt.figure()
-        accumulated_biomass = [self.biomass_concentrations[i] * self.volumes[i] for i in range(len(self.biomass_concentrations))]
-        plt.plot(self.times, accumulated_biomass, label='Acumulación de Biomasa (g)')
+        #accumulated_biomass = [self.biomass_concentrations[i] * self.volumes[i] for i in range(len(self.biomass_concentrations))]
+        plt.plot(self.times, self.biomass, label='Acumulación de Biomasa (g)')
         plt.xlabel('Tiempo (h)')
         plt.ylabel('Biomasa Acumulada (g)')
         plt.legend()

@@ -34,10 +34,10 @@ def simulate():
         feed_concentration = float(request.form['feed_concentration'])
         initial_volume = float(request.form['initial_volume'])
         reactor = CLACultivation(initial_substrate, initial_biomass, mu_max, Ks, Yxs, qp, Yps, growth_associated, feed_rate, feed_concentration, initial_volume)
-        times, substrate_concentrations, biomass_concentrations, mus, volumes, products = reactor.simulate(time, dt)
+        times, substrate_concentrations, biomass_concentrations, mus, volumes, products, biomass = reactor.simulate(time, dt)
     
     img = BytesIO()
-    resultado = PlotResults(times, substrate_concentrations, biomass_concentrations, mus, volumes, products)
+    resultado = PlotResults(times, substrate_concentrations, biomass_concentrations, mus, volumes, products, biomass)
     resultado.plot_concentrations(img)
     img.seek(0)
     img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')

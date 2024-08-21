@@ -15,6 +15,7 @@ class CLACultivation:
 
     def simulate(self, time, dt):
         times = [0]
+        biomass = [self.biomass * self.volume]
         substrate_concentrations = [self.substrate]
         biomass_concentrations = [self.biomass]
         mus = [self.mu_max]
@@ -40,19 +41,20 @@ class CLACultivation:
             self.biomass += dX
             biomass_concentrations.append(self.biomass)
 
+            biomass.append(self.biomass * self.volume)
+
             #Balance sustrato
-            dS = (Dilution * (self.feed_concentration - self.substrate) - (mu / self.Yxs + self.qp / self.Yps)) * dt
+            dS = (Dilution * (self.feed_concentration - self.substrate) - (mu / self.Yxs + self.qp / self.Yps) * self.biomass) * dt
             self.substrate += dS
             substrate_concentrations.append(self.substrate)
 
             #Balance producto
             if self.growth_associated == 'yes':
-                #dP = self.Yps * mu * self.biomass
-                product_rate = self.Yps / self.Yxs * mu * self.biomass - Dilution * self.product  # Producto asociado al crecimiento
+                product_rate = self.Yps / self.Yxs * mu # Producto asociado al crecimiento
             else:
-                product_rate = self.qp * self.biomass  # Producto no asociado al crecimiento
+                product_rate = self.qp # Producto no asociado al crecimiento
 
-            self.product += product_rate * dt
+            self.product += (product_rate * self.biomass - Dilution * self.product) * dt
             products.append(self.product)
 
-        return times, substrate_concentrations, biomass_concentrations, mus, volumes, products
+        return times, substrate_concentrations, biomass_concentrations, mus, volumes, products, biomass
